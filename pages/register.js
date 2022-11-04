@@ -22,6 +22,7 @@ export default function Register() {
         password: formData.get("password"),
       })
       .then((user, error) => {
+        router.push("/home");
         console.log(user, error);
       });
   };
