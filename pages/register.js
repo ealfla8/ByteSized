@@ -1,3 +1,5 @@
+import { useRouter } from "next/router";
+
 import {
   FormControl,
   FormLabel,
@@ -10,6 +12,7 @@ import { useSupabaseClient } from "@supabase/auth-helpers-react";
 
 export default function Register() {
   const supabase = useSupabaseClient();
+  const router = useRouter();
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -20,6 +23,11 @@ export default function Register() {
       .signUp({
         email: formData.get("email"),
         password: formData.get("password"),
+        options: {
+          data: {
+            account_type: "user",
+          },
+        },
       })
       .then((user, error) => {
         router.push("/home");
