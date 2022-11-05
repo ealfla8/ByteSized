@@ -32,9 +32,9 @@ export default function Register() {
       <Container>
         <FormControl as="form" onSubmit={onSubmit}>
           <FormLabel htmlFor="input-email">Email:</FormLabel>
-          <Input type="email" id="input-email" name="email" />
+          <Input type="email" id="input-email" name="email" required />
           <FormLabel htmlFor="input-password">Password:</FormLabel>
-          <Input type="password" id="input-password" name="password" />
+          <Input type="password" id="input-password" name="password" required />
           <Button type="submit">Register</Button>
         </FormControl>
       </Container>
