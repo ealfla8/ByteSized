@@ -2,12 +2,12 @@ import { Image, Input, Button, Divider, Heading} from '@chakra-ui/react'
 
 export default function RestaurantRegistration() {
 	return (<div>
-	<Heading> Example Restaurant Profile</Heading>
+	<Heading> Taco Bell Profile </Heading>
 
 	<Image
 		boxSize='200px'
 		objectFit = 'cover'
-		src='https://st.depositphotos.com/1064950/1282/i/950/depositphotos_12829992-stock-photo-restaurant-signage.jpg'
+		src='https://cdn.mos.cms.futurecdn.net/hgRu36yguybcDeZLsZybEA-1200-80.jpg'
 		alt='Example Restaurant Picture'
 	/>
 
@@ -23,10 +23,6 @@ export default function RestaurantRegistration() {
 	<Divider orientation='horizontal' />                   
 	<Input placeholder='Type your post here!' size='md' />
 	<Button colorScheme='blue'>Post</Button>
-
-
-
-
 
 		</div>
 	)
