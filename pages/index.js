@@ -2,6 +2,8 @@ import Head from "next/head";
 import Image from "next/image";
 import styles from "../styles/Home.module.css";
 
+import { createServerSupabaseClient } from "@supabase/auth-helpers-nextjs";
+
 export default function Home() {
   return (
     <div className={styles.container}>
@@ -65,4 +67,39 @@ export default function Home() {
       </footer>
     </div>
   );
+}
+
+export async function getServerSideProps(ctx) {
+  const supabase = createServerSupabaseClient(ctx);
+
+  const {
+    data: { session },
+    error,
+  } = await supabase.auth.getSession();
+  if (error) throw error;
+  if (!session) return { props: {} };
+
+  // Retrieve provider_token & logged in user's third-party id from metadata
+  const { provider_token, user } = session;
+
+  console.log(user);
+  if (user.user_metadata.account_type == "user") {
+    return {
+      redirect: {
+        destination: "/home",
+        permanent: false,
+      },
+    };
+  } else if (user.user_metadata.account_type == "restaurant") {
+    return {
+      redirect: {
+        destination: "/restaurant/",
+        permanent: false,
+      },
+    };
+  }
+
+  return {
+    props: {},
+  };
 }
