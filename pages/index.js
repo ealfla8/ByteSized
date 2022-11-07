@@ -32,7 +32,7 @@ export default function Home() {
           </a>
 
           <a
-            href="https://github.com/vercel/next.js/tree/canary/examples"
+            href="/login"
             className={styles.card}
           >
             <h2>User Login &rarr;</h2>
