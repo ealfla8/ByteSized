@@ -57,14 +57,14 @@ export default function Register() {
                     <FormControl as="form" onSubmit={onSubmit}>
                         <VStack spacing={5} margin={3}>
                             <Select
-                                placeholder={"Select one"}
+                                placeholder={"Register as:"}
                                 required
                                 width={"80%"}
                                 bgColor={"white"}
                                 variant={"outline"}
                             >
                                 <option value={"customer"}>Customer</option>
-                                <option value={"restaurant"}>Restaurant</option>
+                                <option value={"store"}>Store</option>
                             </Select>
                             <Input
                                 placeholder={"Name"}
@@ -109,9 +109,10 @@ export default function Register() {
                         </VStack>
                     </FormControl>
                 </VStack>
-                <Text>
+                <Text color={"white"}>
                     {errorMessage}
                 </Text>
             </Container>
-        </Flex>);
+        </Flex>
+    );
 }
