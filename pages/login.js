@@ -52,7 +52,7 @@ export default function Login() {
                 <FormControl as="form" onSubmit={onSubmit}>
                     <VStack spacing={5} margin={3}>
                         <Input
-                            placeholder={"email"}
+                            placeholder={"Email"}
                             type={"email"}
                             id={"input-email"}
                             name={"email"}
@@ -62,7 +62,7 @@ export default function Login() {
                             marginTop={5}
                         />
                         <Input
-                            placeholder={"password"}
+                            placeholder={"Password"}
                             type={"password"}
                             id={"input-password"}
                             name={"password"}
