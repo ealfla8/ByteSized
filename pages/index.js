@@ -19,7 +19,7 @@ export default function Home() {
         </h1>
 
         <p className={styles.description}>
-          Thanks for taking the first step in reducing food waste! 
+          Thanks for taking the first step in reducing food waste!
         </p>
 
         <div className={styles.grid}>
