@@ -23,12 +23,12 @@ export default function Home() {
         </p>
 
         <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
+          <a href="/register" className={styles.card}>
             <h2>User Registration &rarr;</h2>
             <p>Not signed up? Create a new account here to score exclusive deals.</p>
           </a>
 
-          <a href="https://nextjs.org/learn" className={styles.card}>
+          <a href="/register-restaurant" className={styles.card}>
             <h2>Store Registration &rarr;</h2>
             <p>Not signed up? Create a new account here to start selling.</p>
           </a>
@@ -42,7 +42,7 @@ export default function Home() {
           </a>
 
           <a
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
+            href="/login"
             className={styles.card}
           >
             <h2>Store Login &rarr;</h2>
