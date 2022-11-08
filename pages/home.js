@@ -1,6 +1,6 @@
 import { useUser, useSupabaseClient } from "@supabase/auth-helpers-react";
 import { createServerSupabaseClient } from "@supabase/auth-helpers-nextjs";
-import { Box, Heading, Text, Stack, HStack} from "@chakra-ui/react"
+import { Box, Heading, Text, Stack, HStack, Image} from "@chakra-ui/react"
 
 export default function Home() {
   const supabase = useSupabaseClient();
@@ -26,6 +26,7 @@ export default function Home() {
       <HStack spacing="50px" pt="70px">
         <Box bg='gray' w="400px" h="200px">
           <center>
+          <Image src="https://www.tacobell.com/images/28174_nacho_fries_deluxe_box_750x660.jpg"/>
           <Text fontSize = '40px' pt="16px">
           Taco Shells $3.99
           </Text>
@@ -33,6 +34,7 @@ export default function Home() {
         </Box>
         <Box bg='gray' w="400px" h="200px">
           <center>
+          <Image src="https://www.tacobell.com/images/28174_nacho_fries_deluxe_box_750x660.jpg"/>
           <Text fontSize = '40px' pt="16px">
           Taco Shells $3.99
           </Text>
@@ -40,6 +42,7 @@ export default function Home() {
         </Box>
         <Box bg='gray' w="400px" h="200px">
           <center>
+          <Image src="https://www.tacobell.com/images/28174_nacho_fries_deluxe_box_750x660.jpg"/>
           <Text fontSize = '40px' pt="16px">
           Taco Shells $3.99
           </Text>
