@@ -6,6 +6,10 @@ import {
     Container,
     Flex,
     Button,
+    Heading,
+    Center,
+    VStack,
+    InputGroup
 } from "@chakra-ui/react";
 import {useSupabaseClient} from "@supabase/auth-helpers-react";
 
@@ -37,16 +41,44 @@ export default function Login() {
     };
 
     return (
-        <Flex alignItems="center" minH="100vh" h="100%">
-            <Container>
-                <FormControl as="form" onSubmit={onSubmit}>
-                    <FormLabel htmlFor="input-email">Email:</FormLabel>
-                    <Input type="email" id="input-email" name="email"/>
-                    <FormLabel htmlFor="input-password">Password:</FormLabel>
-                    <Input type="password" id="input-password" name="password"/>
-                    <Button type="submit">Login</Button>
-                </FormControl>
-            </Container>
+        <Flex alignItems={"center"} justifyContent={"center"} minH={"100vh"} height={"100vh"}>
+            <Flex
+                direction={"column"}
+                background={"gray.700"}
+                padding={10}
+                rounded={50}
+                position={"relative"}
+                width={"50%"}
+            >
+                <VStack spacing={2} marginTop={5}>
+                    <Heading color="white" size="2xl">A Second Chance</Heading>
+                    <Heading color={"white"} size="md">User Login</Heading>
+                    <FormControl as="form" onSubmit={onSubmit}>
+                        <VStack spacing={5} margin={3}>
+                            <Input
+                                placeholder="email"
+                                type="email"
+                                id="input-email"
+                                name="email"
+                                width={"80%"}
+                                bgColor={"white"}
+                                variant={"outline"}
+                                marginTop={7}
+                            />
+                            <Input
+                                placeholder="password"
+                                type="password"
+                                id="input-password"
+                                name="password"
+                                width={"80%"}
+                                bgColor={"white"}
+                                variant={"outline"}
+                            />
+                            <Button colorScheme={"gray"} variant={"solid"} type="submit">Login</Button>
+                        </VStack>
+                    </FormControl>
+                </VStack>
+            </Flex>
         </Flex>
     );
 }
