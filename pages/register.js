@@ -2,7 +2,6 @@ import {
     FormControl,
     Input,
     Flex,
-    Container,
     Button,
     Text,
     VStack,
@@ -10,7 +9,7 @@ import {
     Select,
     extendTheme,
     ChakraProvider,
-    FormLabel,
+    FormLabel
 } from "@chakra-ui/react";
 import {useRouter} from "next/router";
 import {useState} from "react";
@@ -39,10 +38,9 @@ export const theme = extendTheme({
                             left: 0,
                             zIndex: 2,
                             position: "absolute",
-                            backgroundColor: "gray.50",
+                            bgColor: "gray.50",
                             textColor: "gray.700",
                             pointerEvents: "none",
-                            fontWeight: "semibold",
                             mx: 3,
                             px: 1,
                             my: 2,
@@ -85,98 +83,82 @@ export default function Register() {
 
     return (
         <ChakraProvider theme={theme}>
-            <Flex backgroundColor="gray.700" alignItems="center" minH="100vh" h="100%">
-                <Container
+            <Flex
+                bgColor="gray.700"
+                alignItems="center"
+                justifyContent="center"
+                minH="100vh"
+                h="100%">
+                <Flex
                     direction="column"
-                    background="gray.50"
+                    bgColor="gray.50"
                     padding={7}
                     rounded={50}
                     position="relative"
                     width="50%"
                     textColor="gray.700"
                 >
-                    <VStack spacing={7} marginTop={5} marginBottom={5}>
+                    <VStack spacing={5} mt={5} mb={5}>
                         <Heading size="xl">A Second Chance</Heading>
                         <Heading size="md">User Registration</Heading>
-                        <VStack marginTop={5} spacing={7} width="70%">
-                            <FormControl
-                                as="form"
-                                onSubmit={onSubmit}
-                                id="input-category"
-                                variant="floating"
-                            >
-                                <Select
-                                    placeholder="Choose one:"
-                                    required
-                                >
-                                    <option value="customer">Customer</option>
-                                    <option value="store">Store</option>
-                                </Select>
-                                <FormLabel>Register as</FormLabel>
-                            </FormControl>
-                            <FormControl
-                                as="form"
-                                onSubmit={onSubmit}
-                                id="input-name"
-                                variant="floating"
-                            >
-                                <Input
-                                    placeholder=" "
-                                    type="name"
-                                    name="name"
-                                    required
-                                />
-                                <FormLabel>Name</FormLabel>
-                            </FormControl>
-                            <FormControl
-                                as="form"
-                                onSubmit={onSubmit}
-                                variant="floating"
-                                id="input-email"
-                            >
-                                <Input
-                                    placeholder=" "
-                                    type="email"
-                                    name="email"
-                                    required
-                                />
-                                <FormLabel>Email</FormLabel>
-                            </FormControl>
-                            <FormControl
-                                as="form"
-                                onSubmit={onSubmit}
-                                id="input-username"
-                                variant="floating"
-                            >
-                                <Input
-                                    placeholder=" "
-                                    type="username"
-                                    id="input-username"
-                                    name="username"
-                                    required
-                                />
-                                <FormLabel>Username</FormLabel>
-                            </FormControl>
-                            <FormControl
-                                as="form"
-                                onSubmit={onSubmit}
-                                id="input-password"
-                                variant="floating"
-                            >
-                                <Input placeholder=" "
-                                       type="password"
-                                       name="password"
-                                       required
-                                />
-                                <FormLabel>Password</FormLabel>
-                            </FormControl>
-                            <Button type="submit">Create Account</Button>
-                        </VStack>
+                        <FormControl as="form" onSubmit={onSubmit} width="70%" variant="outline">
+                            <VStack spacing={7}>
+                                <FormControl variant="floating">
+                                    <Select
+                                        placeholder="Select one"
+                                        required
+                                    >
+                                        <option value="customer">Customer</option>
+                                        <option value="restaurant">Restaurant</option>
+                                    </Select>
+                                    <FormLabel>Register as</FormLabel>
+                                </FormControl>
+                                <FormControl variant="floating">
+                                    <Input
+                                        placeholder=" "
+                                        type="name"
+                                        id="input-name"
+                                        name="name"
+                                        required
+                                    />
+                                    <FormLabel>Name</FormLabel>
+                                </FormControl>
+                                <FormControl variant="floating">
+                                    <Input
+                                        placeholder=" "
+                                        type="email"
+                                        id="input-email"
+                                        name="email"
+                                        required
+                                    />
+                                    <FormLabel>Email</FormLabel>
+                                </FormControl>
+                                <FormControl variant="floating">
+                                    <Input
+                                        placeholder=" "
+                                        type="username"
+                                        id="input-username"
+                                        name="username"
+                                        required
+                                    />
+                                    <FormLabel>Username</FormLabel>
+                                </FormControl>
+                                <FormControl variant="floating">
+                                    <Input
+                                        placeholder=" "
+                                        type="password"
+                                        id="input-password"
+                                        name="password"
+                                        required
+                                    />
+                                    <FormLabel>Password</FormLabel>
+                                </FormControl>
+                                <Button type="submit">Create Account</Button>
+                            </VStack>
+                        </FormControl>
                     </VStack>
-                    <Text color="white">
-                        {errorMessage}
-                    </Text>
-                </Container>
+                    <Text>{errorMessage}</Text>
+                </Flex>
             </Flex>
         </ChakraProvider>
     );
