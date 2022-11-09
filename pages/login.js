@@ -83,7 +83,7 @@ export default function Login() {
             <Flex backgroundColor="gray.700" alignItems="center" justifyContent="center" minH="100vh" height="100vh">
                 <Flex
                     direction="column"
-                    background="gray.50"
+                    backgroundColor="gray.50"
                     padding={7}
                     rounded={50}
                     position="relative"
