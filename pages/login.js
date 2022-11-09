@@ -80,7 +80,13 @@ export default function Login() {
 
     return (
         <ChakraProvider theme={theme}>
-            <Flex backgroundColor="gray.700" alignItems="center" justifyContent="center" minH="100vh" height="100vh">
+            <Flex
+                backgroundColor="gray.700"
+                alignItems="center"
+                justifyContent="center"
+                minH="100vh"
+                height="100vh"
+            >
                 <Flex
                     direction="column"
                     backgroundColor="gray.50"
@@ -91,7 +97,7 @@ export default function Login() {
                     textColor="gray.700"
                 >
                     <VStack spacing={5} marginTop={5} marginBottom={5}>
-                        <Heading size="2xl">A Second Chance</Heading>
+                        <Heading size="xl">A Second Chance</Heading>
                         <Heading size="md">User Login</Heading>
                         <FormControl as="form" onSubmit={onSubmit} width="70%" variant="outline">
                             <VStack spacing={5}>
@@ -101,6 +107,7 @@ export default function Login() {
                                         type="email"
                                         id="input-email"
                                         name="email"
+                                        required
                                     />
                                     <FormLabel>Email</FormLabel>
                                 </FormControl>
@@ -110,6 +117,7 @@ export default function Login() {
                                         type="password"
                                         id="input-password"
                                         name="password"
+                                        required
                                     />
                                     <FormLabel>Password</FormLabel>
                                 </FormControl>
@@ -123,7 +131,7 @@ export default function Login() {
                                 </Button>
                                 <HStack>
                                     <Button fontSize="sm" variant="link">Forgot Password</Button>
-                                    <Text color="gray.400" fontWeight="semibold">|</Text>
+                                    <Text color="gray.400" fontWeight="semi-bold">|</Text>
                                     <Button fontSize="sm" variant="link">Register</Button>
                                 </HStack>
                             </VStack>

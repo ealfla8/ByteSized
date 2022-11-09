@@ -69,11 +69,11 @@ export default function Register() {
         }).then((response) => {
             if (response.ok) {
                 supabase.auth
-                    .signInWithPassword({
-                        email: formData.get("email"), password: formData.get("password"),
-                    })
+                    .signUp({
+                        email: formData.get("email"), password: formData.get("password")
+                })
                     .then((user, error) => {
-                        router.push("/home");
+                        router.push("/login");
                     });
             } else {
                 response.json().then(data => setErrorMessage(data.error.message));
