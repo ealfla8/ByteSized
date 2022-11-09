@@ -80,61 +80,60 @@ export default function Login() {
 
     return (
         <ChakraProvider theme={theme}>
-            <Flex background={"gray.700"} alignItems="center" justifyContent="center" minH="100vh" height="100vh">
+            <Flex background="gray.700" alignItems="center" justifyContent="center" minH="100vh" height="100vh">
                 <Container
                     direction="column"
-                    background={"gray.50"}
+                    background="gray.50"
                     padding={7}
                     rounded={50}
                     position="relative"
                     width="50%"
                     textColor="gray.700"
                 >
-                    <VStack spacing={5} marginTop={7}>
+                    <VStack spacing={7} marginTop={5} marginBottom={5}>
                         <Heading size="2xl">A Second Chance</Heading>
                         <Heading size="md">User Login</Heading>
-                        <FormControl
-                            as="form"
-                            onSubmit={onSubmit}
-                            variant="floating"
-                            width="70%"
-                        >
-                            <Input
-                                placeholder=" "
-                                type="email"
+                        <VStack marginTop={5} spacing={7} width="70%">
+                            <FormControl
+                                as="form"
+                                onSubmit={onSubmit}
                                 id="input-email"
-                                name="email"
-                            />
-                            <FormLabel>Email</FormLabel>
-                        </FormControl>
-                        <FormControl
-                            as="form"
-                            onSubmit={onSubmit}
-                            variant="floating"
-                            width="70%"
-                        >
-                            <FormLabel>Email</FormLabel>
-                            <Input
-                                placeholder=" "
-                                type="password"
+                                variant="floating"
+                            >
+                                <Input
+                                    placeholder=" "
+                                    type="email"
+                                    name="email"
+                                />
+                                <FormLabel>Email</FormLabel>
+                            </FormControl>
+                            <FormControl
+                                as="form"
+                                onSubmit={onSubmit}
                                 id="input-password"
-                                name="password"
-                            />
-                            <FormLabel>Password</FormLabel>
-                        </FormControl>
-                        <Button
-                            colorScheme="gray"
-                            type="submit"
-                            size="md"
-                            width="30%"
-                        >
-                            Login
-                        </Button>
-                        <HStack>
-                            <Button fontSize="sm" variant="link">Forgot Password</Button>
-                            <Text color="gray.400" fontWeight="semibold">|</Text>
-                            <Button fontSize="sm" variant="link">Register</Button>
-                        </HStack>
+                                variant="floating"
+                            >
+                                <Input
+                                    placeholder=" "
+                                    type="password"
+                                    name="password"
+                                />
+                                <FormLabel>Password</FormLabel>
+                            </FormControl>
+                            <Button
+                                colorScheme="gray"
+                                type="submit"
+                                size="md"
+                                width="30%"
+                            >
+                                Login
+                            </Button>
+                            <HStack>
+                                <Button fontSize="sm" variant="link">Forgot Password</Button>
+                                <Text color="gray.400" fontWeight="semibold">|</Text>
+                                <Button fontSize="sm" variant="link">Register</Button>
+                            </HStack>
+                        </VStack>
                     </VStack>
                 </Container>
             </Flex>
