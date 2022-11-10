@@ -129,7 +129,9 @@ export default function Register() {
                 />
                 <FormLabel>Password</FormLabel>
               </FormControl>
-              <Button type="submit">Create Account</Button>
+              <Button type="submit" isLoading={isSubmitLoading}>
+                Create Account
+              </Button>
             </VStack>
           </FormControl>
         </VStack>
