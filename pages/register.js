@@ -7,7 +7,6 @@ import {
   VStack,
   Heading,
   Select,
-  ChakraProvider,
   FormLabel,
 } from "@chakra-ui/react";
 import { useRouter } from "next/router";
@@ -20,8 +19,11 @@ export default function Register() {
   const supabase = useSupabaseClient();
   const router = useRouter();
 
+  const [isSubmitLoading, setIsSubmitLoading] = useState(false);
+
   const onSubmit = (e) => {
     e.preventDefault();
+    setIsSubmitLoading(true);
 
     const formData = new FormData(e.target);
 
@@ -39,6 +41,8 @@ export default function Register() {
             password: formData.get("password"),
           })
           .then((user, error) => {
+            setIsSubmitLoading(false);
+
             if (user) {
               router.push("/home");
             } else {

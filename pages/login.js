@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useRouter } from "next/router";
 import {
   FormControl,
@@ -9,6 +10,7 @@ import {
   Text,
   HStack,
   FormLabel,
+  Link,
 } from "@chakra-ui/react";
 import { useSupabaseClient } from "@supabase/auth-helpers-react";
 
@@ -16,8 +18,11 @@ export default function Login() {
   const router = useRouter();
   const supabase = useSupabaseClient();
 
+  const [isSubmitLoading, setIsSubmitLoading] = useState(false);
+
   const onSubmit = (e) => {
     e.preventDefault();
+    setIsSubmitLoading(true);
 
     const formData = new FormData(e.target);
 
@@ -27,6 +32,8 @@ export default function Login() {
         password: formData.get("password"),
       })
       .then((user, error) => {
+        setIsSubmitLoading(false);
+
         // If login successful
         if (user) {
           const urlParams = new URLSearchParams(window.location.search);
@@ -86,19 +93,21 @@ export default function Login() {
                 />
                 <FormLabel>Password</FormLabel>
               </FormControl>
-              <Button colorScheme="gray" type="submit" size="md" width="30%">
+              <Button
+                colorScheme="gray"
+                type="submit"
+                size="md"
+                width="30%"
+                isLoading={isSubmitLoading}
+              >
                 Login
               </Button>
               <HStack>
-                <Button fontSize="sm" variant="link">
-                  Forgot Password
-                </Button>
+                <Link fontSize="sm">Forgot Password</Link>
                 <Text color="gray.400" fontWeight="semi-bold">
                   |
                 </Text>
-                <Button fontSize="sm" variant="link">
-                  Register
-                </Button>
+                <Link fontSize="sm">Register</Link>
               </HStack>
             </VStack>
           </FormControl>
