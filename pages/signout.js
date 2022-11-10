@@ -8,5 +8,5 @@ export default function Signout() {
     router.push("/");
   });
 
-  return <div>User home</div>;
+  return <div>signout</div>;
 }
