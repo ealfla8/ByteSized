@@ -1,41 +1,30 @@
 import { useUser, useSupabaseClient } from "@supabase/auth-helpers-react";
 import { createServerSupabaseClient } from "@supabase/auth-helpers-nextjs";
 import { Box, Heading, Text, Stack, HStack, Image } from "@chakra-ui/react";
+import { useEffect, useState } from "react";
 
 export default function Home() {
   const supabase = useSupabaseClient();
   const user = useUser();
-  const deals = [
-    {
-      name: "Taco shells",
-      price: 3.99
-    },
-    {
-      name: "Fries",
-      price: 1.99
-    },
-    {
-      name: "Sprite",
-      price: 1.00
-    }
-  ];
 
-  console.log(deals.map(deal => 
-    (
-      <Box bg="gray" w="400px" h="200px">
-      <center>
-        <Image src="https://www.tacobell.com/images/28174_nacho_fries_deluxe_box_750x660.jpg" />
-        <Text fontSize="40px" pt="16px">
-          {deal.name} ${Number(deal.price).toFixed(2)}
-        </Text>
-      </center>
-    </Box>
-    )));
+  const [deals, setDeals] = useState([]);
+
+  useEffect(() => {
+    if (user) {
+      fetch(
+        "/api/get-user-deals?" +
+          new URLSearchParams({
+            user_id: user.id,
+          })
+      )
+        .then((response) => response.json())
+        .then((data) => setDeals(data.deals));
+    }
+  }, [user]);
 
   return (
     <Box as="section" pt="90px" pb="198px" px="32px">
-      <center
-      >
+      <center>
         <Heading fontSize="70px">
           Welcome to <i>A Second Chance.</i>
         </Heading>
@@ -44,18 +33,16 @@ export default function Home() {
         </Text>
       </center>
       <HStack spacing="50px" pt="70px" justifyContent="center">
-      {deals.map(deal => 
-      (
-        <Box bg="gray" w="400px" h="200px">
-        <center>
-          <Image src="https://www.tacobell.com/images/28174_nacho_fries_deluxe_box_750x660.jpg" />
-          <Text fontSize="40px" pt="16px">
-            {deal.name} ${Number(deal.price).toFixed(2)}
-          </Text>
-        </center>
-      </Box>
-      )
-      )}
+        {deals.map((deal, i) => (
+          <Box bg="gray" w="400px" h="200px" key={i}>
+            <center>
+              <Image src="https://www.tacobell.com/images/28174_nacho_fries_deluxe_box_750x660.jpg" />
+              <Text fontSize="40px" pt="16px">
+                {deal.name} ${Number(deal.price).toFixed(2)}
+              </Text>
+            </center>
+          </Box>
+        ))}
       </HStack>
     </Box>
   );
