@@ -6,6 +6,7 @@ import {
   FormLabel,
   Input,
   Container,
+  Text,
   Flex,
   Button,
 } from "@chakra-ui/react";
@@ -17,6 +18,8 @@ import PlacesAutocomplete, {
 } from "react-places-autocomplete";
 
 export default function RegisterRestaurant() {
+  const [errorMessage,setErrorMessage] = useState("");
+
   const supabase = useSupabaseClient();
   const router = useRouter();
 
@@ -30,24 +33,50 @@ export default function RegisterRestaurant() {
     geocodeByAddress(address)
       .then((results) => {
         getLatLng(results[0]).then(({ lat, lng }) => {
-          supabase.auth
-            .signUp({
+          fetch("/api/signup-restaurant", {
+            method: "POST",
+            body: JSON.stringify({
               email: formData.get("email"),
               password: formData.get("password"),
-              options: {
-                data: {
-                  account_type: "restaurant",
-                  restaurant_name: formData.get("restaurant-name"),
-                  address,
-                  lat,
-                  lng,
-                },
-              },
-            })
-            .then((user, error) => {
-              router.push("/home");
-              console.log(user, error);
-            });
+            }),
+          }).then((response) => {
+            if (response.ok) {
+              supabase.auth
+                .signInWithPassword({
+                  email: formData.get("email"),
+                  password: formData.get("password"),
+                })
+                .then((restaurant, error) => {
+                  setIsSubmitLoading(false);
+      
+                  if (restaurant) {
+                    router.push("/restaurantprofile");
+                  } else {
+                    console.log(error);
+                  }
+                });
+            } else {
+              response.json().then((data) => setErrorMessage(data.error.message));
+            }
+          });
+          // supabase.auth
+          //   .signUp({
+          //     email: formData.get("email"),
+          //     password: formData.get("password"),
+          //     options: {
+          //       data: {
+          //         account_type: "restaurant",
+          //         restaurant_name: formData.get("restaurant-name"),
+          //         address,
+          //         lat,
+          //         lng,
+          //       },
+          //     },
+          //   })
+          //   .then((user, error) => {
+          //     router.push("/home");
+          //     console.log(user, error);
+          //   });
         });
       })
       .then((latLng) => console.log("Success", latLng))
@@ -128,6 +157,7 @@ export default function RegisterRestaurant() {
 
             <Button type="submit">Register Restaurant</Button>
           </FormControl>
+            <Text>{errorMessage}</Text>
         </Container>
       </Flex>
       <script
