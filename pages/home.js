@@ -1,10 +1,9 @@
-import { useUser, useSupabaseClient } from "@supabase/auth-helpers-react";
+import { useUser } from "@supabase/auth-helpers-react";
 import { createServerSupabaseClient } from "@supabase/auth-helpers-nextjs";
-import { Box, Heading, Text, Stack, HStack, Image } from "@chakra-ui/react";
+import { Box, Heading, Text, HStack, Image } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 
 export default function Home() {
-  const supabase = useSupabaseClient();
   const user = useUser();
 
   const [deals, setDeals] = useState([]);
@@ -65,9 +64,8 @@ export async function getServerSideProps(ctx) {
     };
 
   // Retrieve provider_token & logged in user's third-party id from metadata
-  const { provider_token, user } = session;
+  const { user } = session;
 
-  console.log(user);
   if (user.user_metadata.account_type == "user") {
     return {
       props: {},

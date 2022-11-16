@@ -2,11 +2,6 @@ import { useUser, useSupabaseClient } from "@supabase/auth-helpers-react";
 import { createServerSupabaseClient } from "@supabase/auth-helpers-nextjs";
 
 export default function Restaurant() {
-  const supabase = useSupabaseClient();
-  const user = useUser();
-
-  console.log(user);
-
   return <div>Restaurant home</div>;
 }
 
