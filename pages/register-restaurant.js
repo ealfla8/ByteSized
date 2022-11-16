@@ -6,6 +6,7 @@ import {
   FormLabel,
   Input,
   Container,
+  Text,
   Flex,
   Button,
 } from "@chakra-ui/react";
@@ -17,41 +18,46 @@ import PlacesAutocomplete, {
 } from "react-places-autocomplete";
 
 export default function RegisterRestaurant() {
+  const [errorMessage, setErrorMessage] = useState("");
+
   const supabase = useSupabaseClient();
   const router = useRouter();
 
+  const [isSubmitLoading, setIsSubmitLoading] = useState(false);
   const [address, setAddress] = useState("");
 
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
 
+    setIsSubmitLoading(true);
     const formData = new FormData(e.target);
 
-    geocodeByAddress(address)
-      .then((results) => {
-        getLatLng(results[0]).then(({ lat, lng }) => {
-          supabase.auth
-            .signUp({
-              email: formData.get("email"),
-              password: formData.get("password"),
-              options: {
-                data: {
-                  account_type: "restaurant",
-                  restaurant_name: formData.get("restaurant-name"),
-                  address,
-                  lat,
-                  lng,
-                },
-              },
-            })
-            .then((user, error) => {
-              router.push("/home");
-              console.log(user, error);
-            });
+    try {
+      const geocodeResult = await geocodeByAddress(address);
+      const latLng = await getLatLng(geocodeResult[0]);
+
+      const signupResponse = await fetch("/api/signup-restaurant", {
+        method: "POST",
+        body: JSON.stringify({
+          email: formData.get("email"),
+          password: formData.get("password"),
+        }),
+      });
+      if (signupResponse.ok) {
+        const { data, error } = await supabase.auth.signInWithPassword({
+          email: formData.get("email"),
+          password: formData.get("password"),
         });
-      })
-      .then((latLng) => console.log("Success", latLng))
-      .catch((error) => console.error("Error", error));
+        setIsSubmitLoading(false);
+
+        if (data) router.push("/restaurantprofile");
+      } else {
+        const { error } = await signupResponse.json();
+        setErrorMessage(error.message);
+      }
+    } catch (e) {
+      setErrorMessage(e);
+    }
   };
 
   return (
@@ -126,8 +132,11 @@ export default function RegisterRestaurant() {
               required
             />
 
-            <Button type="submit">Register Restaurant</Button>
+            <Button type="submit" isLoading={isSubmitLoading}>
+              Register Restaurant
+            </Button>
           </FormControl>
+          <Text>{errorMessage}</Text>
         </Container>
       </Flex>
       <script
