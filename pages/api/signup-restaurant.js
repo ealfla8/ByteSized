@@ -20,9 +20,14 @@ export default async function handler(req, res) {
   if (error) {
     res.status(403).json({ error });
   } else {
-    const { error: supabaseError } = await supabase
-      .from("restaurants")
-      .insert({ id: data.user.id, email: bodyData.email });
+    const { error: supabaseError } = await supabase.from("restaurants").insert({
+      id: data.user.id,
+      email: bodyData.email,
+      name: bodyData.name,
+      lat: bodyData.latitude,
+      lng: bodyData.longitude,
+      address: bodyData.address,
+    });
     res.status(200).end();
   }
 }

@@ -41,6 +41,10 @@ export default function RegisterRestaurant() {
         body: JSON.stringify({
           email: formData.get("email"),
           password: formData.get("password"),
+          name: formData.get("restaurant-name"),
+          latitude: latLng.lat,
+          longitude: latLng.lng,
+          address: formData.get("restaurant-address"),
         }),
       });
       if (signupResponse.ok) {
