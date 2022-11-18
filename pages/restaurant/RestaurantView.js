@@ -5,7 +5,7 @@ export default function RestaurantView({ restaurant }) {
 
   return (
     <div>
-      <Heading>{restaurant.email}</Heading>
+      <Heading>random text</Heading>
 
       <Image
         boxSize="200px"
