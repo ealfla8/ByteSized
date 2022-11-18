@@ -1,7 +1,9 @@
 import { useRouter } from "next/router";
 import { createServerSupabaseClient } from "@supabase/auth-helpers-nextjs";
 import { useSupabaseClient, useUser } from "@supabase/auth-helpers-react";
+
 import RestaurantView from "./RestaurantView";
+import UserView from "./UserView";
 
 export default function RestaurantPage(props) {
   const router = useRouter();
