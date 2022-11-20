@@ -8,7 +8,7 @@ export default async function handler(req, res) {
 
   const { data, error } = await supabase
     .from("restaurants")
-    .select("id", "email", "name", "lat", "lng", "address");
+    .select("id, email, name, lat, lng, address");
 
   res.status(200).json({ restaurants: data });
 }
