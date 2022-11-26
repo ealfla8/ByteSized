@@ -1,6 +1,14 @@
 import { useUser } from "@supabase/auth-helpers-react";
 import { createServerSupabaseClient } from "@supabase/auth-helpers-nextjs";
-import { Box, Heading, Text, HStack, Image, Flex } from "@chakra-ui/react";
+import {
+  Box,
+  Heading,
+  Text,
+  HStack,
+  Image,
+  Flex,
+  Grid,
+} from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 
 import DealCard from "./DealCard";
@@ -45,72 +53,87 @@ export default function Home() {
   };
 
   return (
-    <Box as="section" pt="90px" pb="198px" px="32px">
-      <div>
-        <Heading fontSize="50px" color="#334155">
-          Second Chances near{" "}
-          <span
-            style={{
-              color: "#d946ef",
-              background: "linear-gradient(to right, #a855f7, #d946ef)",
-              WebkitBackgroundClip: "text",
-              WebkitTextFillColor: "transparent",
-            }}
-          >
-            Gainesville:
-          </span>
-        </Heading>
-      </div>
-      <HStack spacing="50px" pt="70px" justifyContent="start">
-        {Object.entries(groupDealsByRestaurant(deals)).map(([key, value]) => (
-          <Flex key={key}>
-            {/* Restaurant card */}
-            <Box
-              mr="60px"
-              px="10"
-              py="8"
-              rounded="xl"
-              style={{ position: "relative" }}
-              bg="rgba(0, 0, 0, 0.6)"
+    <Flex
+      as="section"
+      pt="90px"
+      pb="198px"
+      px="32px"
+      w="full"
+      justifyContent="center"
+    >
+      <Box maxW="1200px" w="100%">
+        <div>
+          <Heading fontSize="50px" color="#334155">
+            Second Chances near{" "}
+            <span
+              style={{
+                color: "#d946ef",
+                background: "linear-gradient(to right, #a855f7, #d946ef)",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+              }}
             >
-              <Box
+              Gainesville:
+            </span>
+          </Heading>
+        </div>
+        <Heading mt="70px" mb="20px">
+          Your restaurants:
+        </Heading>
+        <HStack spacing="50px" justifyContent="start">
+          {Object.entries(groupDealsByRestaurant(deals)).map(([key, value]) => (
+            <Flex key={key}>
+              {/* Restaurant card */}
+              <Flex
+                mr="60px"
+                px="10"
+                py="8"
                 rounded="xl"
-                position="absolute"
-                style={{
-                  height: "100%",
-                  width: "100%",
-                  top: 0,
-                  left: 0,
-                  zIndex: -1,
-                  backgroundImage:
-                    "url('https://locations.tacobell.com/permanent-b0b701/assets/images/hero.9266f3de.jpg')",
-                  backgroundSize: "cover",
-                }}
-              ></Box>
-              <Box color="white">
-                <Heading fontSize="3xl">{value.restaurant.name}</Heading>
-                <Text fontSize="2xl" mt="1">
-                  {value.deals.length} deals!
-                </Text>
-              </Box>
-              <Box mt="10" color="white">
-                <Text>100kg of carbon emissions saved</Text>
-                <Text>{value.restaurant.address.split(",")[0]}</Text>
-              </Box>
-            </Box>
-            {/* Deal row */}
-            <div>
-              {value.deals.map((deal) => (
-                <div key={deal.id}>{deal.name}</div>
-              ))}
-            </div>
-          </Flex>
-        ))}
-        {/* {deals.map((deal, i) => (
-          <DealCard deal={deal} key={i} />
-        ))} */}
-      </HStack>
-    </Box>
+                bg="rgba(0, 0, 0, 0.6)"
+                style={{ position: "relative" }}
+                flexDir="column"
+                justifyContent="space-between"
+                maxH="250px"
+              >
+                <Box
+                  rounded="xl"
+                  position="absolute"
+                  style={{
+                    height: "100%",
+                    width: "100%",
+                    top: 0,
+                    left: 0,
+                    zIndex: -1,
+                    backgroundImage:
+                      "linear-gradient(to right bottom, rgba(239, 68, 68, 0.5), rgba(4, 120, 87, 0.5)), url('https://locations.tacobell.com/permanent-b0b701/assets/images/hero.9266f3de.jpg')",
+                    backgroundSize: "cover",
+                  }}
+                ></Box>
+                <Box color="white">
+                  <Heading fontSize="3xl">{value.restaurant.name}</Heading>
+                  <Text fontSize="2xl" mt="1">
+                    {value.deals.length} deals!
+                  </Text>
+                </Box>
+                <Box mt="10" color="white">
+                  <Text>
+                    <span style={{ textDecoration: "underline" }}>100kg</span>{" "}
+                    of carbon emissions saved
+                  </Text>
+                  <Text>{value.restaurant.address.split(",")[0]}</Text>
+                </Box>
+              </Flex>
+              {/* Deal row */}
+              <Grid gap="5">
+                {value.deals.map((deal) => (
+                  <DealCard deal={deal} key={deal.id} />
+                ))}
+              </Grid>
+            </Flex>
+          ))}
+        </HStack>
+      </Box>
+    </Flex>
   );
 }
 

@@ -1,17 +1,38 @@
-import { Box, Heading, Text, HStack, Image } from "@chakra-ui/react";
+import { Box, Heading, Text, Flex, Button } from "@chakra-ui/react";
+
+function price(number) {
+  return Number(number).toFixed(2);
+}
 
 export default function DealCard({ deal }) {
   // console.log(deal);
 
   return (
-    <Box bg="red" w="300px" h="200px"></Box>
-    // <Box bg="gray" w="400px" h="200px">
-    //   <center>
-    //     <Image src="https://www.tacobell.com/images/28174_nacho_fries_deluxe_box_750x660.jpg" />
-    //     <Text fontSize="40px" pt="16px">
-    //       {deal.name} ${Number(deal.price).toFixed(2)}
-    //     </Text>
-    //   </center>
-    // </Box>
+    <Flex
+      bg="gray"
+      w="300px"
+      h="140px"
+      rounded="lg"
+      bgImage="linear-gradient(to right bottom, rgba(239, 68, 68, 0.8), rgba(4, 120, 87, 0.8)), url('https://www.tacobell.com/images/28174_nacho_fries_deluxe_box_750x660.jpg')"
+      bgSize="cover"
+      flexDir="column"
+      alignItems="center"
+      justifyContent="center"
+      px="3"
+    >
+      <Box alignSelf="end">
+        <Text as="del" display="inline" mr="3">
+          ${price(deal.price_original)}
+        </Text>
+        <Text display="inline">${price(deal.price)}</Text>
+      </Box>
+      <Heading fontSize="lg" mt="3">
+        {deal.name}
+      </Heading>
+      <Text>3 left</Text>
+      <Button size="sm" mt="3">
+        Buy
+      </Button>
+    </Flex>
   );
 }

@@ -25,7 +25,7 @@ export default async function handler(req, res) {
 
     const { data, error } = await supabase
       .from("deals")
-      .select("price, name, id")
+      .select("price_original, price, name, id")
       .eq("restaurant_id", restaurantId);
     const restaurant = await supabase
       .from("restaurants")
