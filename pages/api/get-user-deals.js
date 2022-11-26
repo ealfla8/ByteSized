@@ -25,7 +25,7 @@ export default async function handler(req, res) {
 
     const { data, error } = await supabase
       .from("deals")
-      .select("price, name")
+      .select("price, name, id")
       .eq("restaurant_id", restaurantId);
     const restaurant = await supabase
       .from("restaurants")
@@ -33,8 +33,6 @@ export default async function handler(req, res) {
       .eq("id", restaurantId)
       .single();
 
-    console.log(restaurant.data);
-    console.log(data);
     data.map((deal) => deals.push({ ...deal, restaurant: restaurant.data }));
   }
 
