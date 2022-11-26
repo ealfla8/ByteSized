@@ -21,13 +21,22 @@ export default async function handler(req, res) {
 
   const deals = [];
   for (let i = 0; i < user.following_restaurants.length; i++) {
+    const restaurantId = user.following_restaurants[i];
+
     const { data, error } = await supabase
       .from("deals")
       .select("price, name")
-      .eq("restaurant_id", user.following_restaurants[i]);
-    data.map((deal) => deals.push(deal));
+      .eq("restaurant_id", restaurantId);
+    const restaurant = await supabase
+      .from("restaurants")
+      .select("*")
+      .eq("id", restaurantId)
+      .single();
+
+    console.log(restaurant.data);
+    console.log(data);
+    data.map((deal) => deals.push({ ...deal, restaurant: restaurant.data }));
   }
-  console.log(deals);
 
   res.status(200).json({
     deals: deals,
