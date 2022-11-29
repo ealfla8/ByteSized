@@ -130,8 +130,8 @@ export default function Register() {
               </Button>
             </VStack>
           </FormControl>
+          <Text fontSize="xs" color="red.500">{errorMessage}</Text>
         </VStack>
-        <Text>{errorMessage}</Text>
       </Flex>
     </Flex>
   );
