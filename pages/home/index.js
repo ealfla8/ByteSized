@@ -205,7 +205,7 @@ export default function Home() {
               {/* Deal row */}
               <Grid gap="5">
                 {value.deals.map((deal) => (
-                  <DealCard deal={deal} key={deal.id} />
+                  <DealCard deal={deal} key={deal.id} userId={user.id} />
                 ))}
               </Grid>
             </Flex>

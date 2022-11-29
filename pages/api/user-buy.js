@@ -8,6 +8,8 @@ export default async function handler(req, res) {
 
   console.log(req.query.deal);
 
+  console.log(req.query.user);
+
   const { data: currentCount, error } = await supabase
     .from("deals")
     .select("count")
@@ -16,11 +18,29 @@ export default async function handler(req, res) {
 
   console.log(currentCount);
 
-  const { dataUpdate, errorUpdate } = await supabase
-    .from("deals")
-    .update({ count: currentCount.count - 1 })
-    .eq("id", req.query.deal);
+  if (currentCount.count >= 1) {
+    const { data: dataUpdate } = await supabase
+      .from("deals")
+      .update({ count: currentCount.count - 1 })
+      .eq("id", req.query.deal);
 
-  console.log(dataUpdate);
-  res.status(200).json({ deals: dataUpdate });
+    console.log(dataUpdate);
+
+    const { data: userOrder } = await supabase
+      .from("users")
+      .select("orders")
+      .eq("id", req.query.user)
+      .single();
+    console.log(userOrder);
+
+    const { data: orderUpdate, error2 } = await supabase
+      .from("users")
+      .update({ orders: [...userOrder.orders, req.query.deal] })
+      .eq("id", req.query.user);
+
+    console.log(orderUpdate);
+    res.status(200).json({ deals: dataUpdate });
+  } else {
+    res.status(400).json({ message: "Product has sold out." });
+  }
 }

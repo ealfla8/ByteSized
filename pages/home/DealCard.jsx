@@ -4,7 +4,7 @@ function price(number) {
   return Number(number).toFixed(2);
 }
 
-export default function DealCard({ deal }) {
+export default function DealCard({ deal, userId }) {
   // console.log(deal);
 
   function onByClick()
@@ -14,6 +14,7 @@ export default function DealCard({ deal }) {
     fetch("/api/user-buy?" +
     new URLSearchParams({
       deal:deal.id,
+      user:userId,
     }))
       .then((response) => response.json())
       .then((data) => console.log(data));
