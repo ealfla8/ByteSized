@@ -7,6 +7,18 @@ function price(number) {
 export default function DealCard({ deal }) {
   // console.log(deal);
 
+  function onByClick()
+  {
+    console.log("here");
+    
+    fetch("/api/user-buy?" +
+    new URLSearchParams({
+      deal:deal.id,
+    }))
+      .then((response) => response.json())
+      .then((data) => console.log(data));
+  }
+  
   return (
     <Flex
       bg="gray"
@@ -30,8 +42,8 @@ export default function DealCard({ deal }) {
       <Heading fontSize="xl" mt="3">
         {deal.name}
       </Heading>
-      <Text>3 left</Text>
-      <Button size="sm" mt="3" textColor="black">
+      <Text>{deal.count} left</Text>
+      <Button size="sm" mt="3" textColor="black" onClick={onByClick}>
         Buy
       </Button>
     </Flex>
