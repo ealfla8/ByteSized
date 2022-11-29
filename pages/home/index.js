@@ -242,7 +242,7 @@ export async function getServerSideProps(ctx) {
   } else if (user.user_metadata.account_type == "restaurant") {
     return {
       redirect: {
-        destination: "/restaurant/",
+        destination: `/restaurant/${user.id}`,
         permanent: false,
       },
     };
