@@ -1,7 +1,7 @@
 import { Grid, GridItem, Flex, Box, Image } from "@chakra-ui/react";
 
 export default function UserView({ restaurant }) {
-  console.log(restaurant);
+  if (restaurant === undefined) return <div>Yuh</div>;
 
   return (
     <Grid templateColumns="500px 1fr" minH={"100vh"}>

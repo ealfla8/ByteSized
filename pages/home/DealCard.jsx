@@ -5,7 +5,7 @@ function price(number) {
 }
 
 export default function DealCard({ deal }) {
-  // console.log(deal);
+  if (deal === undefined) return <div>yuh</div>;
 
   return (
     <Flex
