@@ -16,7 +16,10 @@ import DealCard from "./DealCard";
 export default function Home() {
   const user = useUser();
 
+  console.log(user);
+
   const [deals, setDeals] = useState([]);
+  const [orders, setOrders] = useState([]);
 
   useEffect(() => {
     if (user) {
@@ -28,6 +31,15 @@ export default function Home() {
       )
         .then((response) => response.json())
         .then((data) => setDeals(data.deals));
+      fetch(
+        "/api/get-user-orders?" +
+          new URLSearchParams({
+            user_id: user.id,
+          })
+      )
+        .then((response) => response.json())
+        .then((data) => console.log(data.orders));
+      // .then((data) => setOrders(data.orders));
     }
   }, [user]);
 
