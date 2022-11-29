@@ -16,7 +16,7 @@ export default function RestaurantPage(props) {
     if (user && user.user_metadata.account_type == "restaurant")
       return <RestaurantView restaurant={props.restaurant} />;
     else if (user && user.user_metadata.account_type == "user")
-      return <UserView restaurant={props.restaurant} />;
+      return <UserView restaurant={props.restaurant}></UserView>;
 
     return <div></div>;
   };

@@ -1,45 +1,29 @@
 import { createServerSupabaseClient } from "@supabase/auth-helpers-nextjs";
+import { useEffect, useState } from "react";
+import { UnorderedList, ListItem } from "@chakra-ui/react";
+import { Link } from "@chakra-ui/react";
 
 export default function Restaurant() {
-  return <div>Restaurant home</div>;
-}
+  const [restaurants, setRestaurants] = useState([]);
 
-export async function getServerSideProps(ctx) {
-  const supabase = createServerSupabaseClient(ctx);
+  useEffect(() => {
+    fetch("/api/get-restaurants")
+      .then((response) => response.json())
+      .then((data) => setRestaurants(data.restaurants));
+  }, []);
 
-  const {
-    data: { session },
-    error,
-  } = await supabase.auth.getSession();
-  console.log(session);
-
-  if (error) throw error;
-  if (!session)
-    return {
-      redirect: {
-        destination: "/",
-        permanent: false,
-      },
-    };
-
-  // Retrieve provider_token & logged in user's third-party id from metadata
-  const { provider_token, user } = session;
-
-  console.log(user);
-  if (user.user_metadata.account_type == "restaurant") {
-    return {
-      props: {},
-    };
-  } else if (user.user_metadata.account_type == "user") {
-    return {
-      redirect: {
-        destination: "/home/",
-        permanent: false,
-      },
-    };
-  }
-
-  return {
-    props: {},
-  };
+  return (
+    <div>
+      <UnorderedList>
+        {restaurants.map((restaurant) => (
+          <ListItem key={restaurant.id}>
+            <Link href={`/restaurant/${restaurant.id}`}>
+              {restaurant.name ?? "No name"} -{" "}
+              {restaurant.address ?? "No address"}
+            </Link>
+          </ListItem>
+        ))}
+      </UnorderedList>
+    </div>
+  );
 }
