@@ -10,7 +10,7 @@ import {
   Text,
   HStack,
   FormLabel,
-  Link,
+  Link
 } from "@chakra-ui/react";
 import { useSupabaseClient } from "@supabase/auth-helpers-react";
 
@@ -36,13 +36,13 @@ export default function Login() {
       .then((user, error) => {
         setIsSubmitLoading(false);
 
-        // If login successful
         if (user) {
           const urlParams = new URLSearchParams(window.location.search);
+          // successful login
           if (urlParams.get("redirectedFrom")) {
             router.push(urlParams.get("redirectedFrom"));
           }
-          else {
+          else {  // invalid login
               setErrorMessage(user.error.message);
           }
         }
@@ -114,8 +114,8 @@ export default function Login() {
               </HStack>
             </VStack>
           </FormControl>
+          <Text fontSize="xs" color="red.500">{errorMessage}</Text>
         </VStack>
-        <Text>{errorMessage}</Text>
       </Flex>
     </Flex>
   );
