@@ -6,7 +6,6 @@ import {
   Text,
   VStack,
   Heading,
-  Select,
   FormLabel,
 } from "@chakra-ui/react";
 import { useRouter } from "next/router";
