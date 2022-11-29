@@ -43,13 +43,16 @@ export default function Register() {
           .then((user, error) => {
             setIsSubmitLoading(false);
 
+            // successful registration
             if (user) {
               router.push("/home");
             } else {
-              console.log(error);
+              // error message when not successful
+              setErrorMessage(error);
             }
           });
       } else {
+        setIsSubmitLoading(false);
         response.json().then((data) => setErrorMessage(data.error.message));
       }
     });

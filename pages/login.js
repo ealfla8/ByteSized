@@ -15,6 +15,8 @@ import {
 import { useSupabaseClient } from "@supabase/auth-helpers-react";
 
 export default function Login() {
+  const [errorMessage, setErrorMessage] = useState("");
+
   const router = useRouter();
   const supabase = useSupabaseClient();
 
@@ -39,8 +41,9 @@ export default function Login() {
           const urlParams = new URLSearchParams(window.location.search);
           if (urlParams.get("redirectedFrom")) {
             router.push(urlParams.get("redirectedFrom"));
-          } else {
-            router.push("/home");
+          }
+          else {
+              setErrorMessage(user.error.message);
           }
         }
       });
@@ -112,6 +115,7 @@ export default function Login() {
             </VStack>
           </FormControl>
         </VStack>
+        <Text>{errorMessage}</Text>
       </Flex>
     </Flex>
   );
