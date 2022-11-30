@@ -83,13 +83,6 @@ export default function Register() {
           >
             <VStack spacing={7}>
               <FormControl variant="floating">
-                <Select placeholder="Select one" required>
-                  <option value="customer">Customer</option>
-                  <option value="restaurant">Restaurant</option>
-                </Select>
-                <FormLabel>Register as</FormLabel>
-              </FormControl>
-              <FormControl variant="floating">
                 <Input
                   placeholder=" "
                   type="name"
