@@ -20,6 +20,8 @@ import {
 } from "@chakra-ui/react";
 
 export default function RestaurantView({ restaurant }) {
+  if (restaurant === undefined) return <div>Yuh</div>;
+
   function onCreateClick(event) {
     event.preventDefault();
 
