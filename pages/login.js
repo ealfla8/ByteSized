@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
+import { NextLink } from "next/link";
 import {
   FormControl,
   Input,
@@ -108,11 +109,12 @@ export default function Login() {
           </FormControl>
           <Text fontSize="xs" color="red.500">{errorMessage}</Text>
           <HStack>
-            <Link fontSize="sm">Forgot Password</Link>
-            <Text color="gray.400" fontWeight="semi-bold">
-              |
-            </Text>
-            <Link fontSize="sm">Register</Link>
+            <Link fontSize="xs" as={NextLink} href='/forgot-password'>Forgot Password</Link>
+            <Text color="gray.400" fontWeight="semi-bold">|</Text>
+            <Text color="gray.400" fontWeight="bold" fontSize="xs">Register as:</Text>
+            <Link fontSize="xs" as={NextLink} href='/register-customer'>Customer</Link>
+            <Text color="gray.400" fontWeight="semi-bold">|</Text>
+            <Link fontSize="xs" as={NextLink} href='/register-restaurant'>Store</Link>
           </HStack>
         </VStack>
       </Flex>

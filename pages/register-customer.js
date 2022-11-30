@@ -13,7 +13,7 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 import { useSupabaseClient } from "@supabase/auth-helpers-react";
 
-export default function Register() {
+export default function RegisterCustomer() {
   const [errorMessage, setErrorMessage] = useState("");
 
   const supabase = useSupabaseClient();
