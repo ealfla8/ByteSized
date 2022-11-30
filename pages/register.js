@@ -43,13 +43,15 @@ export default function Register() {
           .then((user, error) => {
             setIsSubmitLoading(false);
 
+            // successful registration
             if (user) {
               router.push("/home");
             } else {
-              console.log(error);
+              setErrorMessage(error);
             }
           });
       } else {
+        setIsSubmitLoading(false);
         response.json().then((data) => setErrorMessage(data.error.message));
       }
     });
@@ -82,13 +84,6 @@ export default function Register() {
             variant="outline"
           >
             <VStack spacing={7}>
-              <FormControl variant="floating">
-                <Select placeholder="Select one" required>
-                  <option value="customer">Customer</option>
-                  <option value="restaurant">Restaurant</option>
-                </Select>
-                <FormLabel>Register as</FormLabel>
-              </FormControl>
               <FormControl variant="floating">
                 <Input
                   placeholder=" "
@@ -134,8 +129,8 @@ export default function Register() {
               </Button>
             </VStack>
           </FormControl>
+          <Text fontSize="xs" color="red.500">{errorMessage}</Text>
         </VStack>
-        <Text>{errorMessage}</Text>
       </Flex>
     </Flex>
   );
