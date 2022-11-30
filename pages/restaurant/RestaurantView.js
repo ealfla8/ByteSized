@@ -1,33 +1,97 @@
-import { Image, Input, Button, Divider, Heading } from "@chakra-ui/react";
+import {
+  Image,
+  Input,
+  Button,
+  Divider,
+  Heading,
+  FormControl,
+} from "@chakra-ui/react";
+import {
+  SimpleGrid,
+  Grid,
+  GridItem,
+  Box,
+  Flex,
+  Spacer,
+  Center,
+  Square,
+  Text,
+  Stack,
+} from "@chakra-ui/react";
 
 export default function RestaurantView({ restaurant }) {
-  console.log(restaurant);
+  function onCreateClick(event) {
+    event.preventDefault();
+
+    const formData = new FormData(event.target);
+    console.log(formData.get("itemName"));
+
+    fetch("/api/create-new-deal", {
+      method: "POST",
+      body: JSON.stringify({
+        itemName: formData.get("itemName"),
+        oldPrice: formData.get("oldPrice"),
+        newPrice: formData.get("newPrice"),
+        quantity: formData.get("quantity"),
+        id: restaurant.id,
+      }),
+    })
+      .then((response) => response.json())
+      .then((data) => console.log(data));
+  }
 
   return (
     <div>
-      <Heading>random text</Heading>
+      <Grid h="100vh" templateColumns="500px 1fr" gap={4}>
+        <GridItem bg="papayawhip">
+          <Center>
+            <Heading> {restaurant.name}</Heading>
+          </Center>
+          <Center>
+            <Image
+              boxSize="200px"
+              objectFit="cover"
+              src="https://st.depositphotos.com/1064950/1282/i/950/depositphotos_12829992-stock-photo-restaurant-signage.jpg"
+              alt="Example Restaurant Picture"
+            />
+          </Center>
+          <Center>
+            <Text> {restaurant.address} </Text>
+          </Center>
 
-      <Image
-        boxSize="200px"
-        objectFit="cover"
-        src="https://st.depositphotos.com/1064950/1282/i/950/depositphotos_12829992-stock-photo-restaurant-signage.jpg"
-        alt="Example Restaurant Picture"
-      />
+          <Flex color="white" flexDirection="column" alignItems="center">
+            <Center w="250px" h="50px" marginTop="50px">
+              <Button borderRightRadius="0" color="black">
+                Edit Profile
+              </Button>
+            </Center>
 
-      <Divider
-        orientation="horizontal" /*the divider is because I don't know how to add spacing*/
-      />
+            <Center w="250px" h="50px" marginTop="50px">
+              <Button borderRightRadius="0" color="black">
+                Followers
+              </Button>
+            </Center>
+          </Flex>
 
-      <Button colorScheme="blue">Edit Profile</Button>
-      <Divider orientation="horizontal" />
+          {/* <Heading>{restaurant.email}</Heading> */}
+        </GridItem>
 
-      <Button colorScheme="blue">Followers</Button>
-      <Divider orientation="horizontal" />
-      <Button colorScheme="blue">Write a post..</Button>
-      <Divider orientation="horizontal" />
-      <Divider orientation="horizontal" />
-      <Input placeholder="Type your post here!" size="md" />
-      <Button colorScheme="blue">Post</Button>
+        <GridItem bg="tomato">
+          <Center>
+            <Stack spacing={3}>
+              <FormControl as="form" onSubmit={onCreateClick}>
+                <Input placeholder="Item Name" size="md" name="itemName" />
+                <Input placeholder="Old Price" size="md" name="oldPrice" />
+                <Input placeholder="New Price" size="md" name="newPrice" />
+                <Input placeholder="Quantity" size="md" name="quantity" />
+                <Center>
+                  <Button type="submit">Create this deal!</Button>
+                </Center>
+              </FormControl>
+            </Stack>
+          </Center>
+        </GridItem>
+      </Grid>
     </div>
   );
 }
