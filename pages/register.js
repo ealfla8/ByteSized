@@ -43,13 +43,15 @@ export default function Register() {
           .then((user, error) => {
             setIsSubmitLoading(false);
 
+            // successful registration
             if (user) {
               router.push("/home");
             } else {
-              console.log(error);
+              setErrorMessage(error);
             }
           });
       } else {
+        setIsSubmitLoading(false);
         response.json().then((data) => setErrorMessage(data.error.message));
       }
     });
@@ -127,8 +129,8 @@ export default function Register() {
               </Button>
             </VStack>
           </FormControl>
+          <Text fontSize="xs" color="red.500">{errorMessage}</Text>
         </VStack>
-        <Text>{errorMessage}</Text>
       </Flex>
     </Flex>
   );
