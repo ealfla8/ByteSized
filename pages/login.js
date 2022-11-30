@@ -18,6 +18,7 @@ export default function Login() {
   const router = useRouter();
   const supabase = useSupabaseClient();
 
+  const [errorMessage, setErrorMessage] = useState("");
   const [isSubmitLoading, setIsSubmitLoading] = useState(false);
 
   const onSubmit = (e) => {
@@ -37,10 +38,11 @@ export default function Login() {
         // If login successful
         if (user) {
           const urlParams = new URLSearchParams(window.location.search);
+          // successful login
           if (urlParams.get("redirectedFrom")) {
             router.push(urlParams.get("redirectedFrom"));
           } else {
-            router.push("/home");
+            setErrorMessage(user.error.message);
           }
         }
       });
@@ -102,15 +104,16 @@ export default function Login() {
               >
                 Login
               </Button>
-              <HStack>
-                <Link fontSize="sm">Forgot Password</Link>
-                <Text color="gray.400" fontWeight="semi-bold">
-                  |
-                </Text>
-                <Link fontSize="sm">Register</Link>
-              </HStack>
             </VStack>
           </FormControl>
+          <Text fontSize="xs" color="red.500">{errorMessage}</Text>
+          <HStack>
+            <Link fontSize="sm">Forgot Password</Link>
+            <Text color="gray.400" fontWeight="semi-bold">
+              |
+            </Text>
+            <Link fontSize="sm">Register</Link>
+          </HStack>
         </VStack>
       </Flex>
     </Flex>
