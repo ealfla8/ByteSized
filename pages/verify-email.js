@@ -7,22 +7,9 @@ export default function VerifyEmail() {
     const router = useRouter();
     const supabase = useSupabaseClient();
 
+    const [email, setEmail] = useState("");
     const [message, setMessage] = useState("");
     const [isSubmitLoading, setIsSubmitLoading] = useState(false);
-
-    useEffect(() => {
-        supabase.auth.onAuthStateChange(async (event, session) => {
-            if (event === "PASSWORD_RECOVERY") {
-                const newPassword = prompt("What would you like your new password to be?");
-                const { data, error } = await supabase.auth.updateUser({
-                    password: newPassword,
-                })
-
-                if (data) alert("Password updated successfully!")
-                if (error) alert("There was an error updating your password.")
-            }
-        })
-    }, [])
 
     const onSubmit = async (e) => {
         e.preventDefault();
@@ -40,17 +27,11 @@ export default function VerifyEmail() {
             setIsSubmitLoading(false);
 
             if (data) {
-                try {
-                    const { data: dataVal, error: err } = await supabase.auth.resetPasswordForEmail(email, {
-                        redirectTo: kIsWeb ? null : 'io.supabase.flutter://reset-callback/'
-                    });
-                    if (dataVal) {
-                        setMessage("A password reset link was sent to " + email + ".");
-                    } else {
-                        setMessage(err.message);
-                    }
-                } catch (e) {
-                    setMessage(e.message);
+                const {data: dataVal, error: err} = await supabase.auth.resetPasswordForEmail(email);
+                if (dataVal) {
+                    setMessage("A password reset link was sent to " + email + ".");
+                } else {
+                    setMessage(err.message);
                 }
             } else if (error) {
                 setMessage("There is no account associated with this email.");
