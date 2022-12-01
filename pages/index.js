@@ -23,7 +23,7 @@ export default function Home() {
         </p>
 
         <div className={styles.grid}>
-          <a href="/register" className={styles.card}>
+          <a href="/register-customer.js" className={styles.card}>
             <h2>User Registration &rarr;</h2>
             <p>Not signed up? Create a new account here to score exclusive deals.</p>
           </a>
