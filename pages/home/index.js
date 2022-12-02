@@ -38,8 +38,8 @@ export default function Home() {
           })
       )
         .then((response) => response.json())
-        .then((data) => console.log(data.orders));
-      // .then((data) => setOrders(data.orders));
+        .then((data) => setOrders(data.orders));
+      // .then((data) => console.log(data.orders));
     }
   }, [user]);
 
@@ -169,6 +169,37 @@ export default function Home() {
           </Heading>
         </div>
         <Heading mt="70px" mb="20px">
+          Orders:
+        </Heading>
+        {/* Orders */}
+        <Flex flexDir={"row"}>
+          {orders.map((order) => (
+            <Box
+              key={order.id}
+              bg="white"
+              rounded="xl"
+              boxShadow="base"
+              border="1px"
+              borderColor="gray.200"
+              padding={"30px"}
+              marginRight={"20px"}
+              position="relative"
+            >
+              <Heading fontSize="3xl">{order.name}</Heading>
+              <Box color="black" display="inline-block">
+                <Text fontSize="2xl" mt="1">
+                  count: {order.count}
+                </Text>
+              </Box>
+              <Box mt="10" color="black">
+                <Text>Cost: ${order.price * order.count}</Text>
+              </Box>{" "}
+            </Box>
+          ))}
+        </Flex>
+
+        {/* Restaraunts */}
+        <Heading mt="70px" mb="20px">
           Your restaurants:
         </Heading>
         <HStack spacing="50px" justifyContent="start">
@@ -179,7 +210,7 @@ export default function Home() {
                 mr="60px"
                 px="10"
                 py="8"
-                rounded="xl"
+                roundedTop="xl"
                 bg="rgba(0, 0, 0, 0.6)"
                 style={{ position: "relative" }}
                 flexDir="column"
