@@ -114,7 +114,7 @@ export default function Login() {
             <Text color="gray.400" fontWeight="bold" fontSize="xs">Register as:</Text>
             <Link fontSize="xs" as={NextLink} href='/register-customer'>Customer</Link>
             <Text color="gray.400" fontWeight="semi-bold">|</Text>
-            <Link fontSize="xs" as={NextLink} href='/register-restaurant'>Store</Link>
+            <Link fontSize="xs" as={NextLink} href='/register-restaurant'>Restaurant</Link>
           </HStack>
         </VStack>
       </Flex>
