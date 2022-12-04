@@ -76,7 +76,7 @@ export default function RegisterCustomer() {
       >
         <VStack spacing={5} mt={5} mb={5}>
           <Heading size="xl">A Second Chance</Heading>
-          <Heading size="md">User Registration</Heading>
+          <Heading size="md">Customer Registration</Heading>
           <FormControl
             as="form"
             onSubmit={onSubmit}
@@ -87,7 +87,7 @@ export default function RegisterCustomer() {
               <FormControl variant="floating">
                 <Input
                   placeholder=" "
-                  type="name"
+                  type="text"
                   id="input-name"
                   name="name"
                   required
@@ -107,7 +107,7 @@ export default function RegisterCustomer() {
               <FormControl variant="floating">
                 <Input
                   placeholder=" "
-                  type="username"
+                  type="text"
                   id="input-username"
                   name="username"
                   required
