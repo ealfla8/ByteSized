@@ -27,7 +27,9 @@ export default function VerifyEmail() {
             setIsSubmitLoading(false);
 
             if (data) {
-                const {data: dataVal, error: err} = await supabase.auth.resetPasswordForEmail(email);
+                const {data: dataVal, error: err} = await supabase.auth.resetPasswordForEmail(email, {
+                    redirectTo: "https://byte-sized.vercel.app/reset-password"
+                })
                 if (dataVal) {
                     setMessage("A password reset link was sent to " + email + ".");
                 } else {
