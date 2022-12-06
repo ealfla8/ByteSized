@@ -57,6 +57,7 @@ export default function RegisterRestaurant() {
 
         if (data) await router.push(`/restaurant/${data.session.user.id}`);
       } else {
+        setIsSubmitLoading(false);
         const { error } = await signupResponse.json();
         setErrorMessage(error.message);
       }
