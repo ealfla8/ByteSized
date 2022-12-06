@@ -30,7 +30,7 @@ export default function Home() {
                 size="md"
                 width="40%"
                 onClick={() => {
-                  window.location.assign("/login");
+                  router.push("/login");
                 }}
             >
               Login
@@ -43,7 +43,7 @@ export default function Home() {
               size="md"
               width="40%"
               onClick={() => {
-                window.location.assign("/register-customer");
+                router.push("/register-customer");
               }}
             >
               Customer
