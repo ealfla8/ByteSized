@@ -1,9 +1,9 @@
-import {useState} from 'react'
+import {useState, useEffect} from 'react'
 import {useRouter} from "next/router";
 import {useSupabaseClient} from "@supabase/auth-helpers-react";
 import {Button, Flex, FormControl, FormLabel, Heading, Input, Text, VStack} from "@chakra-ui/react";
 
-export default function VerifyEmail() {
+export default function VerifyEmailCustomer() {
     const router = useRouter();
     const supabase = useSupabaseClient();
 
@@ -12,24 +12,34 @@ export default function VerifyEmail() {
 
     const onSubmit = async (e) => {
         e.preventDefault();
-
         setIsSubmitLoading(true);
 
-        const formData = new FormData(e.target).get("newPassword").toString();
+        const formData = new FormData(e.target).get("email").toString();
 
-        const { data, error } = await supabase.auth.updateUser({ password: formData })
+        try {
+            const {data, error} = await supabase
+                .from("restaurants")
+                .select("email")
+                .eq("email", formData)
+                .single();
 
-        setIsSubmitLoading(false);
+            setIsSubmitLoading(false);
 
-        if (data) {
-            supabase.auth.signOut().then(() => {
-                window.location.assign("/reset-success");
-            })
+            if (data) {
+                const {data: dataVal, error: err} = await supabase.auth.resetPasswordForEmail(formData, {
+                    redirectTo: "https://byte-sized.vercel.app/reset-password"
+                })
+                if (dataVal) {
+                    setMessage("A password reset link was sent to " + formData + ". Please check your spam folder.");
+                } else {
+                    setMessage(err.message);
+                }
+            } else if (error) {
+                setMessage("There is no account associated with this email.");
+            }
+        } catch (e) {
+            setMessage(e.message);
         }
-        else if (error) {
-            setMessage("There was an error updating your password.");
-        }
-
     }
 
     return (
@@ -50,7 +60,8 @@ export default function VerifyEmail() {
                 textColor="gray.700"
             >
                 <VStack spacing={5} marginTop={5} marginBottom={5}>
-                    <Heading size="md">Please enter your new password</Heading>
+                    <Heading size="xl">Restaurant Reset Password</Heading>
+                    <Heading size="md">Please enter your email</Heading>
                     <FormControl
                         as="form"
                         onSubmit={onSubmit}
@@ -61,12 +72,12 @@ export default function VerifyEmail() {
                             <FormControl variant="floating">
                                 <Input
                                     placeholder=" "
-                                    type="password"
-                                    id="input-password"
-                                    name="newPassword"
+                                    type="email"
+                                    id="input-email"
+                                    name="email"
                                     required
                                 />
-                                <FormLabel>New Password</FormLabel>
+                                <FormLabel>Email</FormLabel>
                             </FormControl>
                             <Button
                                 colorScheme="gray"
