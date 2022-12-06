@@ -11,8 +11,12 @@ import {
   Center,
   VStack,
 } from "@chakra-ui/react";
+import {useSupabaseClient} from "@supabase/auth-helpers-react";
 
 export default function RestaurantView({ restaurant }) {
+
+  const supabase = useSupabaseClient();
+
   if (restaurant === undefined) return <div>Yuh</div>;
 
   function onCreateClick(event) {
