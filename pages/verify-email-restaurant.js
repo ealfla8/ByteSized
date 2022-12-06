@@ -30,7 +30,7 @@ export default function VerifyEmailCustomer() {
                     redirectTo: `${window.location.origin}/reset-password`
                 })
 
-                console.log(window.location.origin)
+                console.log(window.location.origin);
 
                 if (dataVal) {
                     setMessage(`A password reset link was sent to ${formData}. Please check your spam folder.`);
