@@ -34,7 +34,7 @@ export default function ResetSuccess() {
                         width="30%"
                         onClick={() => {router.push('/')}}
                     >
-                        Back to Login
+                        Back to Home
                     </Button>
                 </VStack>
             </Flex>

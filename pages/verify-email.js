@@ -30,7 +30,7 @@ export default function VerifyEmail() {
                     redirectTo: "http://localhost:3000/reset-password"
                 })
                 if (dataVal) {
-                    setMessage("A password reset link was sent to " + formData + ".");
+                    setMessage("A password reset link was sent to " + formData + ". Please check your spam folder.");
                 } else {
                     setMessage(err.message);
                 }
