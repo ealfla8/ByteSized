@@ -97,78 +97,13 @@ export default function Home() {
           <Tabs align='center' size='lg' isFitted variant='soft-rounded' colorScheme='gray'>
             <Box bg="gray.700" rounded={100}>
               <TabList>
-                <Tab color="white">Account</Tab>
-                <Tab color="white">Orders</Tab>
                 <Tab color="white">Following</Tab>
+                <Tab color="white">Orders</Tab>
+                <Tab color="white">Account</Tab>
               </TabList>
             </Box>
 
             <TabPanels>
-
-              {/* Account Tab */}
-              <TabPanel>
-                <VStack>
-                  <Button
-                      colorScheme="gray"
-                      type="submit"
-                      size="lg"
-                      width="30%"
-                      onClick={() => {
-                        window.location.assign("/edit-profile-customer");
-                      }}
-                  >
-                    Edit Profile
-                  </Button>
-
-                  <Button
-                      colorScheme="gray"
-                      type="submit"
-                      size="lg"
-                      width="30%"
-                      onClick={() => {
-                        supabase.auth.signOut().then(() => {
-                          window.location.assign("/");
-                        })
-                      }}
-                  >
-                    Logout
-                  </Button>
-                </VStack>
-              </TabPanel>
-
-
-              {/* Orders Tab */}
-              <TabPanel>
-                <Flex flexDir={"row"}>
-                  {orders.map((order) => (
-                      <Box
-                          key={order.id}
-                          bg="white"
-                          rounded="xl"
-                          boxShadow="base"
-                          border="1px"
-                          borderColor="gray.200"
-                          padding={30}
-                          marginLeft={4}
-                          marginRight={4}
-                          width="30%"
-                          position="relative"
-                      >
-                        <Heading fontSize="2xl">{order.name}</Heading>
-                        <Box color="black" display="inline-block">
-                          <Text fontSize="xl" mt="1">
-                            count: {order.count}
-                          </Text>
-                        </Box>
-                        <Box mt="10" color="black">
-                          <Text>
-                            Cost: ${Number(order.price * order.count).toFixed(2)}
-                          </Text>
-                        </Box>
-                      </Box>
-                  ))}
-                </Flex>
-              </TabPanel>
 
               {/* Following tab */}
               <TabPanel>
@@ -244,6 +179,74 @@ export default function Home() {
                   ))}
                 </HStack>
               </TabPanel>
+
+
+              {/* Orders Tab */}
+              <TabPanel>
+                <Flex flexDir={"row"}>
+                  {orders.map((order) => (
+                      <Box
+                          key={order.id}
+                          bg="white"
+                          rounded="xl"
+                          boxShadow="base"
+                          border="1px"
+                          borderColor="gray.200"
+                          padding={30}
+                          marginLeft={4}
+                          marginRight={4}
+                          width="30%"
+                          position="relative"
+                      >
+                        <Heading fontSize="2xl">{order.name}</Heading>
+                        <Box color="black" display="inline-block">
+                          <Text fontSize="xl" mt="1">
+                            count: {order.count}
+                          </Text>
+                        </Box>
+                        <Box mt="10" color="black">
+                          <Text>
+                            Cost: ${Number(order.price * order.count).toFixed(2)}
+                          </Text>
+                        </Box>
+                      </Box>
+                  ))}
+                </Flex>
+              </TabPanel>
+
+
+              {/* Account Tab */}
+              <TabPanel>
+                <VStack>
+                  <Button
+                      colorScheme="gray"
+                      type="submit"
+                      size="lg"
+                      width="30%"
+                      onClick={() => {
+                        window.location.assign("/edit-profile-customer");
+                      }}
+                  >
+                    Edit Profile
+                  </Button>
+
+                  <Button
+                      colorScheme="gray"
+                      type="submit"
+                      size="lg"
+                      width="30%"
+                      onClick={() => {
+                        supabase.auth.signOut().then((r) => {
+                          console.log(r);
+                          window.location.assign("/");
+                        })
+                      }}
+                  >
+                    Logout
+                  </Button>
+                </VStack>
+              </TabPanel>
+
             </TabPanels>
           </Tabs>
         </Box>
@@ -281,6 +284,8 @@ export async function getServerSideProps(ctx) {
         permanent: false,
       },
     };
+  } else {
+    console.log(user);
   }
 
   return {

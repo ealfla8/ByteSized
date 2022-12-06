@@ -100,7 +100,8 @@ export default function RestaurantView({ restaurant }) {
                   size="md"
                   width="30%"
                   onClick={() => {
-                    supabase.auth.signOut().then(() => {
+                    supabase.auth.signOut().then((r) => {
+                      console.log(r);
                       window.location.assign("/");
                     })
                   }}
