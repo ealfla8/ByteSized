@@ -1,11 +1,6 @@
-import {useRouter} from "next/router";
-import {Button, Flex, Heading, Text, VStack} from "@chakra-ui/react";
-import {useSupabaseClient} from "@supabase/auth-helpers-react";
+import {Button, Flex, Heading, VStack} from "@chakra-ui/react";
 
 export default function ResetSuccess() {
-    const router = useRouter();
-    const supabase = useSupabaseClient();
-
     return (
         <Flex
             backgroundColor="gray.700"
@@ -29,12 +24,13 @@ export default function ResetSuccess() {
                     <Heading size="sm">Please login using your newly created password.</Heading>
                     <Button
                         colorScheme="gray"
-                        type="submit"
                         size="md"
                         width="30%"
-                        onClick={() => {router.push('/')}}
+                        onClick={() => {
+                            window.location.assign("/login");
+                        }}
                     >
-                        Back to Home
+                        Back to Login
                     </Button>
                 </VStack>
             </Flex>

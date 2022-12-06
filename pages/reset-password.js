@@ -23,7 +23,7 @@ export default function VerifyEmail() {
 
         if (data) {
             supabase.auth.signOut().then(() => {
-                router.push("/reset-success")
+                window.location.assign("/reset-success");
             })
         }
         else if (error) {
