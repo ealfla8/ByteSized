@@ -42,9 +42,13 @@ export default function Login() {
           // successful login
           if (urlParams.get("redirectedFrom")) {
             router.push(urlParams.get("redirectedFrom"));
-          } else {
+          } else if (user.error) {
             setErrorMessage(user.error.message);
+          } else {
+            router.push("/home");
           }
+        } else if (error) {
+          setErrorMessage(error.message);
         }
       });
   };
