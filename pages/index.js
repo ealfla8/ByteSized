@@ -8,7 +8,7 @@ import {Button, Flex, FormControl, FormLabel, Heading, HStack, Input, Link, Text
 import {NextLink} from "next/link";
 
 export default function Home() {
-  const router = useRouter;
+  const router = useRouter();
   return (
       <Flex
           backgroundColor="gray.700"
