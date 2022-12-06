@@ -115,43 +115,43 @@ export default function RegisterRestaurant() {
                       getSuggestionItemProps,
                       loading,
                     }) => (
-                    <div>
-                      <Input
-                          placeholder=" "
-                          type="search"
-                          id="input-restaurant-address"
-                          name="restaurant-address"
-                          {...getInputProps({
-                            className: "location-search-input",
+                      <div>
+                        <Input
+                            placeholder=" "
+                            type="search"
+                            id="input-restaurant-address"
+                            name="restaurant-address"
+                            {...getInputProps({
+                              className: "location-search-input",
+                            })}
+                            required
+                        />
+                        <FormLabel>Address</FormLabel>
+                        <div className="autocomplete-dropdown-container">
+                          {loading && <div>Loading...</div>}
+                          {suggestions.map((suggestion) => {
+                            const className = suggestion.active
+                                ? "suggestion-item--active"
+                                : "suggestion-item";
+                            // inline style for demonstration purpose
+                            const style = suggestion.active
+                                ? { cursor: "pointer" }
+                                : { cursor: "pointer" };
+                            return (
+                                <div
+                                    key={suggestion.description}
+                                    {...getSuggestionItemProps(suggestion, {
+                                      className,
+                                      style
+                                    })}
+                                >
+                                  <span>{suggestion.description}</span>
+                                </div>
+                            );
                           })}
-                          required
-                      />
-                      <FormLabel>Address</FormLabel>
-                      <div className="autocomplete-dropdown-container">
-                        {loading && <div>Loading...</div>}
-                        {suggestions.map((suggestion) => {
-                          const className = suggestion.active
-                              ? "suggestion-item--active"
-                              : "suggestion-item";
-                          // inline style for demonstration purpose
-                          const style = suggestion.active
-                              ? { cursor: "pointer" }
-                              : { cursor: "pointer" };
-                          return (
-                              <div
-                                  key={suggestion.description}
-                                  {...getSuggestionItemProps(suggestion, {
-                                    className,
-                                    style
-                                  })}
-                              >
-                                <span>{suggestion.description}</span>
-                              </div>
-                          );
-                        })}
+                        </div>
                       </div>
-                    </div>
-                  )}
+                    )}
                   </PlacesAutocomplete>
                 </FormControl>
                 <FormControl variant="floating">
