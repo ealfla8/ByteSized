@@ -1,25 +1,31 @@
+import { useState } from "react";
 import { Box, Heading, Text, Flex, Button } from "@chakra-ui/react";
 
 function price(number) {
   return Number(number).toFixed(2);
 }
 
-export default function DealCard({ deal }) {
+export default function DealCard({ deal, userId, onDealClick }) {
   if (deal === undefined) return <div>yuh</div>;
+  const [isLoading, setIsLoading] = useState(false);
 
-  function onByClick()
-  {
-    console.log("here");
-    
-    fetch("/api/user-buy?" +
-    new URLSearchParams({
-      deal:deal.id,
-      user:userId,
-    }))
+  function onByClick() {
+    setIsLoading(true);
+
+    fetch(
+      "/api/user-buy?" +
+        new URLSearchParams({
+          deal: deal.id,
+          user: userId,
+        })
+    )
       .then((response) => response.json())
-      .then((data) => console.log(data));
+      .then((data) => {
+        onDealClick(deal);
+        setIsLoading(false);
+      });
   }
-  
+
   return (
     <Flex
       bg="gray"
@@ -44,7 +50,13 @@ export default function DealCard({ deal }) {
         {deal.name}
       </Heading>
       <Text>{deal.count} left</Text>
-      <Button size="sm" mt="3" textColor="black" onClick={onByClick}>
+      <Button
+        size="sm"
+        mt="3"
+        textColor="black"
+        onClick={onByClick}
+        isLoading={isLoading}
+      >
         Buy
       </Button>
     </Flex>
