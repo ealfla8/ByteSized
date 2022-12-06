@@ -1,11 +1,6 @@
-import Head from "next/head";
-import Image from "next/image";
-import styles from "../styles/Home.module.css";
-
 import { createServerSupabaseClient } from "@supabase/auth-helpers-nextjs";
 import {useRouter} from "next/router";
-import {Button, Flex, FormControl, FormLabel, Heading, HStack, Input, Link, Text, VStack} from "@chakra-ui/react";
-import {NextLink} from "next/link";
+import {Button, Flex, Heading, VStack} from "@chakra-ui/react";
 
 export default function Home() {
   const router = useRouter();
@@ -35,7 +30,7 @@ export default function Home() {
                 size="md"
                 width="40%"
                 onClick={() => {
-                  router.push("/login")
+                  window.location.assign("/login");
                 }}
             >
               Login
@@ -48,7 +43,7 @@ export default function Home() {
               size="md"
               width="40%"
               onClick={() => {
-                router.push("/register-customer")
+                window.location.assign("/register-customer");
               }}
             >
               Customer
@@ -58,7 +53,7 @@ export default function Home() {
                 size="md"
                 width="40%"
                 onClick={() => {
-                  router.push("/register-restaurant")
+                  window.location.assign("/register-restaurant");
                 }}
             >
               Restaurant
@@ -83,14 +78,14 @@ export async function getServerSideProps(ctx) {
   const { provider_token, user } = session;
 
   console.log(user);
-  if (user.user_metadata.account_type == "user") {
+  if (user.user_metadata.account_type === "user") {
     return {
       redirect: {
         destination: "/home",
         permanent: false,
       },
     };
-  } else if (user.user_metadata.account_type == "restaurant") {
+  } else if (user.user_metadata.account_type === "restaurant") {
     return {
       redirect: {
         destination: "/restaurant/",
