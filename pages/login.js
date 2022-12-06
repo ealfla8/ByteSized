@@ -111,14 +111,23 @@ export default function Login() {
               </Button>
             </VStack>
           </FormControl>
+          <Button
+              colorScheme="gray"
+              type="submit"
+              size="md"
+              width="30%"
+              onClick={() => {
+                window.location.assign("/");
+              }}
+          >
+            Back to Home
+          </Button>
           <Text fontSize="xs" color="red.500">{errorMessage}</Text>
           <HStack>
-            <Link fontSize="xs" as={NextLink} href='/verify-email'>Forgot Password</Link>
+            <Text color="gray.400" fontWeight="bold" fontSize="xs">Forgot Password:</Text>
+            <Link fontSize="xs" as={NextLink} href='/verify-email-customer'>Customer</Link>
             <Text color="gray.400" fontWeight="semi-bold">|</Text>
-            <Text color="gray.400" fontWeight="bold" fontSize="xs">Register as:</Text>
-            <Link fontSize="xs" as={NextLink} href='/register-customer'>Customer</Link>
-            <Text color="gray.400" fontWeight="semi-bold">|</Text>
-            <Link fontSize="xs" as={NextLink} href='/register-restaurant'>Restaurant</Link>
+            <Link fontSize="xs" as={NextLink} href='/verify-email-restaurant'>Restaurant</Link>
           </HStack>
         </VStack>
       </Flex>

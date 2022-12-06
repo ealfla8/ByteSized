@@ -3,7 +3,7 @@ import {useRouter} from "next/router";
 import {useSupabaseClient} from "@supabase/auth-helpers-react";
 import {Button, Flex, FormControl, FormLabel, Heading, Input, Text, VStack} from "@chakra-ui/react";
 
-export default function VerifyEmail() {
+export default function VerifyEmailCustomer() {
     const router = useRouter();
     const supabase = useSupabaseClient();
 
@@ -60,7 +60,7 @@ export default function VerifyEmail() {
                 textColor="gray.700"
             >
                 <VStack spacing={5} marginTop={5} marginBottom={5}>
-                    <Heading size="xl">A Second Chance</Heading>
+                    <Heading size="xl">Customer Reset Password</Heading>
                     <Heading size="md">Please enter your email</Heading>
                     <FormControl
                         as="form"
