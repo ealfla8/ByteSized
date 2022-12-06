@@ -29,6 +29,9 @@ export default function VerifyEmailCustomer() {
                 const {data: dataVal, error: err} = await supabase.auth.resetPasswordForEmail(formData, {
                     redirectTo: `${window.location.origin}/reset-password`
                 })
+
+                console.log(window.location.origin)
+
                 if (dataVal) {
                     setMessage(`A password reset link was sent to ${formData}. Please check your spam folder.`);
                 } else {
