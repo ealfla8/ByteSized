@@ -1,4 +1,4 @@
-import { useUser } from "@supabase/auth-helpers-react";
+import {useSupabaseClient, useUser} from "@supabase/auth-helpers-react";
 import { createServerSupabaseClient } from "@supabase/auth-helpers-nextjs";
 import {
   Box,
@@ -7,7 +7,7 @@ import {
   HStack,
   Image,
   Flex,
-  Grid, VStack, Tabs, TabList, Tab, TabPanels, TabPanel,
+  Grid, VStack, Tabs, TabList, Tab, TabPanels, TabPanel, Button,
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 
@@ -15,6 +15,7 @@ import DealCard from "./DealCard";
 
 export default function Home() {
   const user = useUser();
+  const supabase = useSupabaseClient();
 
   console.log(user);
 
@@ -96,12 +97,46 @@ export default function Home() {
           <Tabs align='center' size='lg' isFitted variant='soft-rounded' colorScheme='gray'>
             <Box bg="gray.700" rounded={100}>
               <TabList>
+                <Tab color="white">Account</Tab>
                 <Tab color="white">Orders</Tab>
                 <Tab color="white">Following</Tab>
               </TabList>
             </Box>
 
             <TabPanels>
+
+              {/* Account Tab */}
+              <TabPanel>
+                <VStack>
+                  <Button
+                      colorScheme="gray"
+                      type="submit"
+                      size="lg"
+                      width="30%"
+                      onClick={() => {
+                        window.location.assign("/edit-profile-customer");
+                      }}
+                  >
+                    Edit Profile
+                  </Button>
+
+                  <Button
+                      colorScheme="gray"
+                      type="submit"
+                      size="lg"
+                      width="30%"
+                      onClick={() => {
+                        supabase.auth.signOut().then(() => {
+                          window.location.assign("/");
+                        })
+                      }}
+                  >
+                    Logout
+                  </Button>
+                </VStack>
+              </TabPanel>
+
+
               {/* Orders Tab */}
               <TabPanel>
                 <Flex flexDir={"row"}>
