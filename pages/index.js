@@ -34,7 +34,9 @@ export default function Home() {
                 colorScheme="gray"
                 size="md"
                 width="40%"
-                onClick={() => router.push("/login")}
+                onClick={() => {
+                  router.push("/login")
+                }}
             >
               Login
             </Button>
@@ -45,7 +47,9 @@ export default function Home() {
               colorScheme="gray"
               size="md"
               width="40%"
-              onClick={() => router.push("/register-customer")}
+              onClick={() => {
+                router.push("/register-customer")
+              }}
             >
               Customer
             </Button>
@@ -53,7 +57,9 @@ export default function Home() {
                 colorScheme="gray"
                 size="md"
                 width="40%"
-                onClick={() => router.push("/register-restaurant")}
+                onClick={() => {
+                  router.push("/register-restaurant")
+                }}
             >
               Restaurant
             </Button>
