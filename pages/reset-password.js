@@ -1,43 +1,35 @@
-import {useState, useEffect} from 'react'
+import {useState} from 'react'
 import {useRouter} from "next/router";
 import {useSupabaseClient} from "@supabase/auth-helpers-react";
-import {Button, Flex, FormControl, FormLabel, Heading, HStack, Input, Link, Text, VStack} from "@chakra-ui/react";
+import {Button, Flex, FormControl, FormLabel, Heading, Input, Text, VStack} from "@chakra-ui/react";
 
 export default function VerifyEmail() {
     const router = useRouter();
     const supabase = useSupabaseClient();
 
-    const [newPassword, setNewPassword] = useState("");
     const [message, setMessage] = useState("");
     const [isSubmitLoading, setIsSubmitLoading] = useState(false);
 
     const onSubmit = async (e) => {
         e.preventDefault();
+
         setIsSubmitLoading(true);
 
         const formData = new FormData(e.target).get("newPassword").toString();
 
-        setNewPassword(formData);
+        const { data, error } = await supabase.auth.updateUser({ password: formData })
 
+        setIsSubmitLoading(false);
 
-        try {
-            supabase.auth.onAuthStateChange(async (event, session) => {
-                setIsSubmitLoading(false);
-                if (event === "PASSWORD_RECOVERY") {
-                    const { data, error } = await supabase.auth
-                        .updateUser({ password: formData })
-
-                    if (data) {
-                        await router.push("/login")
-                    }
-                    else if (error) {
-                        setMessage("There was an error updating your password.")
-                    }
-                }
+        if (data) {
+            supabase.auth.signOut().then(() => {
+                router.push("/reset-success")
             })
-        } catch (e) {
-            setMessage(e.message);
         }
+        else if (error) {
+            setMessage("There was an error updating your password.");
+        }
+
     }
 
     return (
