@@ -1,4 +1,4 @@
-import {useState, useEffect} from 'react'
+import {useState} from 'react'
 import {useRouter} from "next/router";
 import {useSupabaseClient} from "@supabase/auth-helpers-react";
 import {Button, Flex, FormControl, FormLabel, Heading, Input, Text, VStack} from "@chakra-ui/react";
@@ -12,34 +12,24 @@ export default function VerifyEmail() {
 
     const onSubmit = async (e) => {
         e.preventDefault();
+
         setIsSubmitLoading(true);
 
-        const formData = new FormData(e.target).get("email").toString();
+        const formData = new FormData(e.target).get("newPassword").toString();
 
-        try {
-            const {data, error} = await supabase
-                .from("users")
-                .select("email")
-                .eq("email", formData)
-                .single();
+        const { data, error } = await supabase.auth.updateUser({ password: formData })
 
-            setIsSubmitLoading(false);
+        setIsSubmitLoading(false);
 
-            if (data) {
-                const {data: dataVal, error: err} = await supabase.auth.resetPasswordForEmail(formData, {
-                    redirectTo: "http://localhost:3000/reset-password"
-                })
-                if (dataVal) {
-                    setMessage("A password reset link was sent to " + formData + ". Please check your spam folder.");
-                } else {
-                    setMessage(err.message);
-                }
-            } else if (error) {
-                setMessage("There is no account associated with this email.");
-            }
-        } catch (e) {
-            setMessage(e.message);
+        if (data) {
+            supabase.auth.signOut().then(() => {
+                router.push("/reset-success")
+            })
         }
+        else if (error) {
+            setMessage("There was an error updating your password.");
+        }
+
     }
 
     return (
@@ -61,7 +51,7 @@ export default function VerifyEmail() {
             >
                 <VStack spacing={5} marginTop={5} marginBottom={5}>
                     <Heading size="xl">A Second Chance</Heading>
-                    <Heading size="md">Please enter your email</Heading>
+                    <Heading size="md">Please enter your new password</Heading>
                     <FormControl
                         as="form"
                         onSubmit={onSubmit}
@@ -72,12 +62,12 @@ export default function VerifyEmail() {
                             <FormControl variant="floating">
                                 <Input
                                     placeholder=" "
-                                    type="email"
-                                    id="input-email"
-                                    name="email"
+                                    type="password"
+                                    id="input-password"
+                                    name="newPassword"
                                     required
                                 />
-                                <FormLabel>Email</FormLabel>
+                                <FormLabel>New Password</FormLabel>
                             </FormControl>
                             <Button
                                 colorScheme="gray"

@@ -27,7 +27,7 @@ export default function RegisterCustomer() {
 
     const formData = new FormData(e.target);
 
-    fetch("/api/signup", {
+    fetch("/api/signup-customer", {
       method: "POST",
       body: JSON.stringify({
         email: formData.get("email"),
@@ -45,14 +45,17 @@ export default function RegisterCustomer() {
 
             // successful registration
             if (user) {
-              router.push("/home");
+              router.push('/home');
             } else {
               setErrorMessage(error);
             }
+            console.log(user);
+            console.log(error)
           });
       } else {
         setIsSubmitLoading(false);
         response.json().then((data) => setErrorMessage(data.error.message));
+        console.log("FAILED");
       }
     });
   };
