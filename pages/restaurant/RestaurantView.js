@@ -61,34 +61,48 @@ export default function RestaurantView({ restaurant }) {
         >
           <GridItem bg="gray.500" area={"nav"} rounded={40}>
             <VStack spacing={7} mt={5} mb={5}>
-                <Heading size="xl"> {restaurant.name}</Heading>
-                <Image
-                  boxSize="200px"
-                  objectFit="cover"
-                  src="https://st.depositphotos.com/1064950/1282/i/950/depositphotos_12829992-stock-photo-restaurant-signage.jpg"
-                  alt="Example Restaurant Picture"
-                  rounded={15}
-                />
+              <Heading size="xl"> {restaurant.name}</Heading>
+              <Image
+                boxSize="200px"
+                objectFit="cover"
+                src="https://st.depositphotos.com/1064950/1282/i/950/depositphotos_12829992-stock-photo-restaurant-signage.jpg"
+                alt="Example Restaurant Picture"
+                rounded={15}
+              />
 
-                <Heading size="sm"> {restaurant.address} </Heading>
-                  <Button
-                      colorScheme="gray"
-                      type="submit"
-                      size="md"
-                      width="30%"
-                  >
-                    Edit Profile
-                  </Button>
+              <Heading size="sm"> {restaurant.address} </Heading>
 
-                  <Button
-                      colorScheme="gray"
-                      type="submit"
-                      size="md"
-                      width="30%"
-                  >
-                    Followers
-                  </Button>
+              <Button
+                  colorScheme="gray"
+                  type="submit"
+                  size="md"
+                  width="30%"
+              >
+                Edit Profile
+              </Button>
 
+              <Button
+                  colorScheme="gray"
+                  type="submit"
+                  size="md"
+                  width="30%"
+              >
+                Followers
+              </Button>
+
+              <Button
+                  colorScheme="gray"
+                  type="submit"
+                  size="md"
+                  width="30%"
+                  onClick={() => {
+                    supabase.auth.signOut().then(() => {
+                      window.location.assign("/");
+                    })
+                  }}
+              >
+                Logout
+              </Button>
             </VStack>
           </GridItem>
 
