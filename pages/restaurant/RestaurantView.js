@@ -9,7 +9,7 @@ import {
   GridItem,
   Flex,
   Center,
-  VStack,
+  VStack, Text, Container
 } from "@chakra-ui/react";
 import {useSupabaseClient} from "@supabase/auth-helpers-react";
 
@@ -74,7 +74,9 @@ export default function RestaurantView({ restaurant }) {
                 rounded={15}
               />
 
-              <Heading size="sm"> {restaurant.address} </Heading>
+              <Container>
+                <Heading size="sm">{restaurant.address}</Heading>
+              </Container>
 
               <Button
                   colorScheme="gray"
