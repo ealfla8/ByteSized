@@ -104,7 +104,7 @@ export default function Login() {
                 colorScheme="gray"
                 type="submit"
                 size="md"
-                width="30%"
+                width="43%"
                 isLoading={isSubmitLoading}
               >
                 Login
@@ -114,7 +114,7 @@ export default function Login() {
           <Button
               colorScheme="gray"
               type="submit"
-              size="md"
+              size="sm"
               width="30%"
               onClick={() => {
                 window.location.assign("/");
